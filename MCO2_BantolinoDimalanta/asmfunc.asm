@@ -10,31 +10,35 @@
 ; Output: Store result in memory loc sdot. Display the result for all version of the kernal
 
 section .data
-sdot   dq 0.0
+sdot   dq 34.0
 
 section .text
 bits 64
 default rel
-global getDotProduct
+global getDotProductx64
 
-getDotProduct:
-    lea rsi, [rcx]
-    lea rdi, [rdx]
-    xor rcx, rcx
-    mov rcx, r8 ; counter (length)
-    xorpd xmm0, xmm0
-    
-dotproduct_loop:
-    movsd xmm1, [rsi]
-    movsd xmm2, [rdi]
-    mulsd xmm1, xmm2
-    addsd xmm0, xmm1
-    add rsi, 8
-    add rdi, 8
-    loop dotproduct_loop
-    movsd [sdot], xmm0
-    
+getDotProductx64:
+    push rsi
+    push rdi
+
  
-    xor rcx, rcx
-    xor rax, rax
+    mov rsi, r8           ; Pointer to vec_A in rsi
+    mov rdi, r9           ; Pointer to vec_B in rdi
+   
+    
+    xorpd xmm0, xmm0      ; Initialize accumulator to 0
+
+dot_product_loop:
+    movsd xmm1, [rsi]     ; Load value from vec_A
+    mulsd xmm1, [rdi]     ; Multiply with value from vec_B
+    addsd xmm0, xmm1      ; Add result to accumulator
+    add rsi, 8            ; Move to next element in vec_A
+    add rdi, 8            ; Move to next element in vec_B
+    loop dot_product_loop ; Loop until rcx is 0
+
+    ; Store constant value 34.0 into asm_dotProduct
+    movsd [rdx], xmm0     ; Store result in asm_dotProduct
+
+    pop rdi
+    pop rsi
     ret
