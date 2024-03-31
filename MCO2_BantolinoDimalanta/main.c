@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <io.h>
 #include <time.h>
+#include <math.h>
 
 extern double getDotProduct(double* vec_A, double* vec_B, long long int size_n);
 
@@ -8,72 +10,60 @@ int main() {
     long long int size_n;
 
     // Loop through different vector sizes
-    for (size_n = 220; size_n <= 230; size_n += 2) {
+    for (size_n = 1048576; size_n <= 1048579; size_n += 2) {
+        clock_t start, end, c_duration, asm_duration;
+        double sdot_c, sdot_asm;
+        double loop_time = 0.0;
+        double c_time = 0.0;
+        
         printf("Vector size: %lld\n", size_n);
-
         // Allocate memory for vec_A and vec_B
         double* vec_A = (double*)malloc(size_n * sizeof(double));
         double* vec_B = (double*)malloc(size_n * sizeof(double));
-
+        
         // Initialize vec_A and vec_B with random values
-        //printf("vec_A: [ ");
+        printf("vec_A: [ ");
         for (int i = 0; i < size_n; ++i) {
             vec_A[i] = (double)rand() / RAND_MAX; // Random value between 0 and 1
-            //printf(" %.2f", vec_A[i]); // Print each element of vec_A
+            // printf(" %.2f", vec_A[i]); // Print each element of vec_A
         }
-        //printf(" ]\n\n");
+        printf(" ]\n\n");
 
-        //printf("vec_B: [");
+        printf("vec_B: [");
         for (int i = 0; i < size_n; ++i) {
             vec_B[i] = (double)rand() / RAND_MAX; // Random value between 0 and 1
-            //printf(" %.2f", vec_B[i]); // Print each element of vec_B
+            // printf(" %.2f", vec_B[i]); // Print each element of vec_B
         }
-        //printf("] \n\n");
-
-        // Initialize timing variables
-        clock_t start, end;
-        double sdot_c, sdot_asm;
-
-        double c_duration = 0.0;
-        double c_time = 0.0;
+        printf("] \n\n");
 
         // Time the C version
-        for (int j = 0; j < 30; ++j) {
-            printf("[%d]", j);
-            start = clock();
+        start = clock();
+        for (int j = 0; j < 30; j++) {
+            // printf("-----------[%d]-----------\n", j);
             sdot_c = 0.0;
-            for (int i = 0; i < size_n; i++) {
-                sdot_c += vec_A[i] * vec_B[i];
+            for (int k = 0; k < size_n; k++) {
+                sdot_c += vec_A[k] * vec_B[k];
             }
-            end = clock();
-
-            printf("start: %.12f, end: %.12f\n", (double)start, (double)end);
-            c_duration = (double) end - (double) start; // Convert to milliseconds
-            c_time += c_duration;
-        }
-        c_time = c_time / 30;
-
-        printf("C version: %.12f milliseconds, dot product: %.2lf\n", c_time, sdot_c);
+        } 
+        end = clock();
+        c_duration = (end - start);
+        loop_time = (double)c_duration*1e3/CLOCKS_PER_SEC;
+        //average       
+        c_time = (double)loop_time / 30.0;
+        printf("C version: %f nanosconds on average, dot product: %.2lf\n", (float)c_duration, sdot_c);
 
         // Time the assembly version
-
-        double asm_duration = 0.0;
         double asm_time = 0.0;
-
-        for (int j = 0; j < 30; ++j) {
-            printf("[%d]", j);
-            start = clock();
+        start = clock();
+        for (int j = 0; j < 30; j++) {
+            // printf("-----------[%d]-----------\n", j);
             sdot_asm = getDotProduct(vec_A, vec_B, size_n);
-            end = clock();
-
-            printf("start: %.12f, end: %.12f\n", (double) start, (double) end);
-            asm_duration = (double) end - (double) start;
-            asm_time += asm_duration;
         }
-        asm_time = asm_time / 30;
-
-        double assembly_duration = ((double)(end - start)) / (CLOCKS_PER_SEC * 30) * 1000; // Convert to milliseconds
-        printf("Assembly version: %.12f milliseconds, dot product: %.2lf\n\n\n", assembly_duration, sdot_asm);
+        end = clock();
+        asm_duration = (end - start);
+        loop_time = (double)asm_duration*1e3 / CLOCKS_PER_SEC;
+        asm_time = (double)loop_time / 30.0;
+        printf("Assembly version: %f nanosconds on average, dot product: %.2lf\n\n\n", (float)asm_duration, sdot_asm);
 
         // Free dynamically allocated memory
         free(vec_A);
