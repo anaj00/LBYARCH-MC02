@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b3c566f5-01ff-4a3a-b48d-c412c4bd7dbf}</ProjectGuid>
+    <ProjectGuid>{cb26cf45-20ac-401f-b04b-e2efd0133396}</ProjectGuid>
     <RootNamespace>MCO2BantolinoDimalanta</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -131,7 +131,7 @@
     <CustomBuild Include="asmfunc.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\NASM\nasm -f win64 asmfunc.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm -f win64 asmfunc.asm</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">asmfunc.obj</Outputs>
     </CustomBuild>
   </ItemGroup>
