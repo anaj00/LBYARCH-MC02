@@ -1,7 +1,0 @@
-﻿  main.c
-C:\Users\janam\OneDrive - De La Salle University - Manila\DLSU\Year 3 Term 2\LBYARCH\MCOs\MC02\MCO2_BantolinoDimalanta\main.c(49,20): warning C4477: 'printf' : format string '%.12f' requires an argument of type 'double', but variadic argument 1 has type 'clock_t'
-C:\Users\janam\OneDrive - De La Salle University - Manila\DLSU\Year 3 Term 2\LBYARCH\MCOs\MC02\MCO2_BantolinoDimalanta\main.c(49,20): warning C4477: 'printf' : format string '%.12f' requires an argument of type 'double', but variadic argument 2 has type 'clock_t'
-C:\Users\janam\OneDrive - De La Salle University - Manila\DLSU\Year 3 Term 2\LBYARCH\MCOs\MC02\MCO2_BantolinoDimalanta\main.c(67,20): warning C4477: 'printf' : format string '%.12f' requires an argument of type 'double', but variadic argument 1 has type 'clock_t'
-C:\Users\janam\OneDrive - De La Salle University - Manila\DLSU\Year 3 Term 2\LBYARCH\MCOs\MC02\MCO2_BantolinoDimalanta\main.c(67,20): warning C4477: 'printf' : format string '%.12f' requires an argument of type 'double', but variadic argument 2 has type 'clock_t'
-main.obj : error LNK2001: unresolved external symbol getDotProduct
-C:\Users\janam\OneDrive - De La Salle University - Manila\DLSU\Year 3 Term 2\LBYARCH\MCOs\MC02\MCO2_BantolinoDimalanta\x64\Release\MCO2_BantolinoDimalanta.exe : fatal error LNK1120: 1 unresolved externals
