@@ -39,6 +39,7 @@ int main() {
 
         // Time the C version
         for (int j = 0; j < 30; ++j) {
+            printf("[%d]", j);
             start = clock();
             sdot_c = 0.0;
             for (int i = 0; i < size_n; i++) {
@@ -46,7 +47,7 @@ int main() {
             }
             end = clock();
 
-            printf("start: %.12f, end: %.12f", (double)start, (double)end);
+            printf("start: %.12f, end: %.12f\n", (double)start, (double)end);
             c_duration = (double) end - (double) start; // Convert to milliseconds
             c_time += c_duration;
         }
@@ -60,11 +61,12 @@ int main() {
         double asm_time = 0.0;
 
         for (int j = 0; j < 30; ++j) {
+            printf("[%d]", j);
             start = clock();
             sdot_asm = getDotProduct(vec_A, vec_B, size_n);
             end = clock();
 
-            //printf("start: %.12f, end: %.12f", (double) start, (double) end);
+            printf("start: %.12f, end: %.12f\n", (double) start, (double) end);
             asm_duration = (double) end - (double) start;
             asm_time += asm_duration;
         }
