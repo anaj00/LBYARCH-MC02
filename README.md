@@ -14,7 +14,7 @@ In our initial debug mode attempt, we aimed to execute until an exponent of 30. 
 Below are the runtime results for debug mode:
 ![alt text](image.png)
 
-The ASM program exhibited approximately 30% faster execution compared to the C program.
+The ASM program exhibited around 30% faster execution compared to the C program.
 
 ### Release
 In release mode, similar to debug mode, we pursued execution until an exponent of 30. Again, similar to debug mode, the release mode operated smoothly up to a vector size of 2^29.
